@@ -8,15 +8,14 @@ import java.util.Set;
 @Table(name = "categories")
 public class Categories {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
+    private Integer category_id; // Changed to Integer
+    
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
-    private Long category_id;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Relations> relations = new HashSet<>();
 
     public Categories() {
@@ -28,11 +27,11 @@ public class Categories {
     }
 
     // Getters and setters
-    public Long getCategory_id() {
+    public Integer getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(Long category_id) {
+    public void setCategory_id(Integer category_id) {
         this.category_id = category_id;
     }
 

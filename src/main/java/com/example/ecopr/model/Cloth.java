@@ -11,12 +11,11 @@ public class Cloth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cloth_id")
-    private Long cloth_id;
+    private Integer cloth_id;
 
     @Column(name = "cloth", nullable = false)
     private String cloth;
 
-    @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Relations> relations = new HashSet<>();
 
     public Cloth() {
@@ -28,11 +27,11 @@ public class Cloth {
     }
 
     // Getters and setters for attributes
-    public Long getCloth_id() {
+    public Integer getCloth_id() {
         return cloth_id;
     }
 
-    public void setCloth_id(Long cloth_id) {
+    public void setCloth_id(Integer cloth_id) {
         this.cloth_id = cloth_id;
     }
 

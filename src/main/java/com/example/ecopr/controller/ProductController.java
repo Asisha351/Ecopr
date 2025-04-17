@@ -20,7 +20,7 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public List<Products> searchProductsByCategory(@RequestParam Long categoryId) {
+    public List<Products> searchProductsByCategory(@RequestParam int categoryId) { // Changed to int
         return productService.getProductsByCategory(categoryId);
     }
 }

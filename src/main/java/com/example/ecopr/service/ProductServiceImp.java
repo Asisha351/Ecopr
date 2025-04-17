@@ -15,7 +15,7 @@ public class ProductServiceImp implements ProductService {
     private RelationsRepository relationsRepository;
 
     @Override
-    public List<Products> getProductsByCategory(Long categoryId) {
+    public List<Products> getProductsByCategory(int categoryId) { // Changed to int
         List<Relations> relations = relationsRepository.findByCategoryId(categoryId);
 
         return relations.stream()

@@ -7,38 +7,37 @@ import jakarta.persistence.*;
 public class Relations {
 
     @Id
-    @Column(name = "product_id")
-    private Long product_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "relation_id")
+    private Integer relation_id;
 
     @ManyToOne
-    @MapsId
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Products product;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Categories category;
 
     @ManyToOne
-    @JoinColumn(name = "cloth_id")
+    @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
 
     public Relations() {}
 
     public Relations(Products product, Categories category, Cloth cloth) {
         this.product = product;
-        this.product_id = product.getProduct_id();
         this.category = category;
         this.cloth = cloth;
     }
 
     // Getters and setters
-    public Long getProduct_id() {
-        return product_id;
+    public Integer getRelation_id() {
+        return relation_id;
     }
 
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
+    public void setRelation_id(Integer relation_id) {
+        this.relation_id = relation_id;
     }
 
     public Products getProduct() {
@@ -67,6 +66,6 @@ public class Relations {
 
     @Override
     public String toString() {
-        return "Relations{ product_id=" + product_id + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
+        return "Relations{ relation_id=" + relation_id + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
     }
 }

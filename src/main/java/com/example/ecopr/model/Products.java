@@ -1,9 +1,6 @@
 package com.example.ecopr.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -12,36 +9,31 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_id")
-    private Long product_id;
+    private Integer product_id;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
 
     @Column(name = "cost", nullable = false)
-    private BigDecimal cost;
+    private Integer cost;
 
     @Column(name = "product_url", nullable = false)
     private String productURL;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Relations> relations = new HashSet<>();
+    public Products() {}
 
-    public Products() {
-        // Default constructor
-    }
-
-    public Products(String productName, BigDecimal cost, String productURL) {
+    public Products(String productName, Integer cost, String productURL) {
         this.productName = productName;
         this.cost = cost;
         this.productURL = productURL;
     }
 
-    // Getters and setters for attributes
-    public Long getProduct_id() {
+    // Getters and setters
+    public Integer getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(Long product_id) {
+    public void setProduct_id(Integer product_id) {
         this.product_id = product_id;
     }
 
@@ -53,11 +45,11 @@ public class Products {
         this.productName = productName;
     }
 
-    public BigDecimal getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 
@@ -67,14 +59,6 @@ public class Products {
 
     public void setProductURL(String productURL) {
         this.productURL = productURL;
-    }
-
-    public Set<Relations> getRelations() {
-        return relations;
-    }
-
-    public void setRelations(Set<Relations> relations) {
-        this.relations = relations;
     }
 
     @Override
