@@ -7,17 +7,16 @@ import jakarta.persistence.*;
 public class Relations {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "relation_id")
-    private Integer relation_id;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Products product;
+    private Integer relationId;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Categories category;
+    
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Products product;
 
     @ManyToOne
     @JoinColumn(name = "cloth_id", nullable = false)
@@ -25,19 +24,20 @@ public class Relations {
 
     public Relations() {}
 
-    public Relations(Products product, Categories category, Cloth cloth) {
+    public Relations(Integer relationId, Products product, Categories category, Cloth cloth) {
+        this.relationId = relationId;
         this.product = product;
         this.category = category;
         this.cloth = cloth;
     }
 
     // Getters and setters
-    public Integer getRelation_id() {
-        return relation_id;
+    public Integer getRelationId() {
+        return relationId;
     }
 
     public void setRelation_id(Integer relation_id) {
-        this.relation_id = relation_id;
+        this.relationId = relation_id;
     }
 
     public Products getProduct() {
@@ -66,6 +66,6 @@ public class Relations {
 
     @Override
     public String toString() {
-        return "Relations{ relation_id=" + relation_id + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
+        return "Relations{ relation_id=" + relationId + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
     }
 }

@@ -4,5 +4,5 @@ import com.example.ecopr.model.Cloth;
 import java.util.Optional;
 
 public interface ClothRepository extends JpaRepository<Cloth, Integer> {
-    Optional<Cloth> findByCloth(String cloth);
+    Optional<Cloth> findBycloth(String cloth);
 }

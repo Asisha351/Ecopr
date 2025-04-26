@@ -50,9 +50,9 @@ public class DataInitializer {
             for (String[] row : rows) {
                 String categoryName = row[0];
                 Integer categoryId = Integer.parseInt(row[1]);
-                Categories category = new Categories(categoryName);
-                category.setCategory_id(categoryId);
-                categoriesRepository.save(category); //save into persistence database
+
+                Categories category = new Categories(categoryId, categoryName);
+                categoriesRepository.save(category);
             }
         } catch (IOException | CsvException e) {
             e.printStackTrace();
@@ -67,8 +67,8 @@ public class DataInitializer {
             for (String[] row : rows) {
                 String clothName = row[0];
                 Integer clothId = Integer.parseInt(row[1]);
-                Cloth cloth = new Cloth(clothName);
-                cloth.setCloth_id(clothId);
+
+                Cloth cloth = new Cloth(clothId, clothName);
                 clothRepository.save(cloth);
             }
         } catch (IOException | CsvException e) {
@@ -82,13 +82,12 @@ public class DataInitializer {
             rows.remove(0); // Skip header row
 
             for (String[] row : rows) {
-                int productId = Integer.parseInt(row[0]);
+                Integer productId = Integer.parseInt(row[0]);
                 String productName = row[1];
-                Integer productCost = Integer.parseInt(row[2]); // Changed to Integer
+                Integer productCost = Integer.parseInt(row[2]);
                 String productURL = row[3];
 
-                Products product = new Products(productName, productCost, productURL);
-                product.setProduct_id(productId);
+                Products product = new Products(productId, productName, productCost, productURL);
                 productsRepository.save(product);
             }
         } catch (IOException | CsvException e) {
@@ -100,29 +99,33 @@ public class DataInitializer {
         try (CSVReader reader = new CSVReader(new FileReader(filename))) {
             List<String[]> rows = reader.readAll();
             rows.remove(0); // Skip header row
-    
+
             for (String[] row : rows) {
                 Integer relationId = Integer.parseInt(row[0]);
-                Integer productId = Integer.parseInt(row[1]); // Changed to Integer
-                Integer categoryId = Integer.parseInt(row[2]); // Changed to Integer
-                Integer clothId = Integer.parseInt(row[3]); // Changed to Integer
-    
+                Integer productId = Integer.parseInt(row[1]);
+                Integer categoryId = Integer.parseInt(row[2]);
+                Integer clothId = Integer.parseInt(row[3]);
+
                 Optional<Products> productOpt = productsRepository.findById(productId);
                 Optional<Categories> categoryOpt = categoriesRepository.findById(categoryId);
                 Optional<Cloth> clothOpt = clothRepository.findById(clothId);
-    
+
                 if (productOpt.isPresent() && categoryOpt.isPresent() && clothOpt.isPresent()) {
                     Products product = productOpt.get();
                     Categories category = categoryOpt.get();
                     Cloth cloth = clothOpt.get();
-    
+
                     Relations relation = new Relations(relationId, product, category, cloth);
                     relationsRepository.save(relation);
+                } else {
+                    System.err.println("Could not find related entities for relation: " +
+                                       "Product ID: " + productId + ", Category ID: " + categoryId + ", Cloth ID: " + clothId);
                 }
             }
         } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
     }
+
 }
 

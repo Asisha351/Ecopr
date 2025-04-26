@@ -9,30 +9,29 @@ import java.util.Set;
 public class Categories {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private Integer category_id; // Changed to Integer
-    
+    private Integer categoryId; // Manually set ID
+
     @Column(name = "category", nullable = false)
     private String category;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Relations> relations = new HashSet<>();
 
-    public Categories() {
-        // Default constructor
-    }
+    public Categories() {}
 
-    public Categories(String category) {
+    public Categories(Integer categoryId, String category) {
+        this.categoryId = categoryId;
         this.category = category;
     }
 
     // Getters and setters
-    public Integer getCategory_id() {
-        return category_id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategory() {
@@ -53,7 +52,7 @@ public class Categories {
 
     @Override
     public String toString() {
-        return "Categories{ category_id=" + category_id + ", category=" + category + " }";
+        return "Categories{ categoryId=" + categoryId + ", category=" + category + " }";
     }
 }
 

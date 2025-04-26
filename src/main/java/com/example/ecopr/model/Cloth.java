@@ -9,30 +9,31 @@ import java.util.Set;
 public class Cloth {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cloth_id")
-    private Integer cloth_id;
+    private Integer clothId;
 
     @Column(name = "cloth", nullable = false)
     private String cloth;
 
+    @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Relations> relations = new HashSet<>();
 
     public Cloth() {
         // Default constructor
     }
 
-    public Cloth(String cloth) {
+    public Cloth(Integer clothId, String cloth) {
+        this.clothId = clothId;
         this.cloth = cloth;
     }
-
+    
     // Getters and setters for attributes
-    public Integer getCloth_id() {
-        return cloth_id;
+    public Integer getClothId() {
+        return clothId;
     }
 
-    public void setCloth_id(Integer cloth_id) {
-        this.cloth_id = cloth_id;
+    public void setClothId(Integer clothId) {
+        this.clothId = clothId;
     }
 
     public String getCloth() {
@@ -53,6 +54,6 @@ public class Cloth {
 
     @Override
     public String toString() {
-        return "Cloth{ cloth_id=" + cloth_id + ", cloth=" + cloth + " }";
+        return "Cloth{ clothId=" + clothId + ", cloth=" + cloth + " }";
     }
 }

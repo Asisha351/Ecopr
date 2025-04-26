@@ -21,10 +21,10 @@ public class EcoprApplication {
         SpringApplication.run(EcoprApplication.class, args);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void testRepositories() {
-        System.out.println("Categories count: " + categoriesRepository.count());
-    }
+    //@EventListener(ApplicationReadyEvent.class)
+    //public void testRepositories() {
+       // System.out.println("Categories count: " + categoriesRepository.count());
+    //}
 
 
 }

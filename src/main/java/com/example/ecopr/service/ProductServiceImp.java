@@ -16,7 +16,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public List<Products> getProductsByCategory(int categoryId) { // Changed to int
-        List<Relations> relations = relationsRepository.findByCategoryId(categoryId);
+        List<Relations> relations = relationsRepository.findBycategory_categoryId(categoryId);
 
         return relations.stream()
                 .map(Relations::getProduct)
