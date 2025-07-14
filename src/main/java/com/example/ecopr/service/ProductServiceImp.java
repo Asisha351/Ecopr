@@ -20,7 +20,6 @@ public class ProductServiceImp implements ProductService {
 
         return relations.stream()
                 .map(Relations::getProduct)
-                .distinct()
                 .collect(Collectors.toList());
     }
 }

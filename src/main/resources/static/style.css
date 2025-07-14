@@ -11,6 +11,7 @@ header{
 .content{
     display: flex;
     flex-direction: row;
+    padding: 20px;
 }
 .left{
     display: flex;
@@ -39,4 +40,50 @@ p{
 }
 button{
     font-size: large;
+}
+#results {
+    /* Give the results container some basic styling to make it visible */
+    background-color: #ffffff; /* White background */
+    padding: 20px; /* Some padding inside the box */
+    border: 1px solid #e0e0e0; /* A light border */
+    border-radius: 8px; /* Slightly rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+
+    /* Ensure it takes up space and allows content to flow */
+    flex-grow: 1; /* Allows #results to take up available space in the .content flex container */
+    display: flex; /* Make #results itself a flex container */
+    flex-direction: column; /* Stack products vertically */
+    gap: 15px; /* Space between each product item */
+}
+
+/* Style for each individual product item */
+.product-item {
+    padding: 15px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Slightly off-white for individual items */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between name, cost, link within an item */
+}
+
+.product-item h3 {
+    margin: 0; /* Remove default h3 margins */
+    color: #333;
+    font-size: 1.2em; /* Slightly larger heading */
+}
+
+.product-item p {
+    margin: 0; /* Remove default p margins */
+    color: #666;
+}
+
+.product-item a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.product-item a:hover {
+    text-decoration: underline;
 }

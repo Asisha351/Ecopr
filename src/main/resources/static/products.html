@@ -21,9 +21,18 @@
                 }
                 const products = await response.json();
                 const resultsDiv = document.getElementById("results");
-                resultsDiv.innerHTML = "";
+
+                // Clear existing content if you refresh and call this multiple times
+                resultsDiv.innerHTML = ''; // Add this line to clear previous results
+
+                if (products.length === 0) {
+                    resultsDiv.innerHTML = '<p>No products found for this category.</p>';
+                    return;
+                }
+
                 products.forEach(product => {
                     const productDiv = document.createElement("div");
+                    productDiv.classList.add("product-item"); // <--- ADD THIS LINE
                     productDiv.innerHTML = `<h3>${product.productName}</h3>
                                             <p>Cost: ${product.cost}</p>
                                             <p><a href="${product.productURL}" target="_blank">Product Link</a></p>`;
