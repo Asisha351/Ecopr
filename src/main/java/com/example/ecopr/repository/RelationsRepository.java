@@ -5,8 +5,5 @@ import com.example.ecopr.model.Relations;
 import java.util.List;
 
 public interface RelationsRepository extends JpaRepository<Relations, Long> {
-    List<Relations> findBycategory_categoryId(Integer categoryId);
-
-    boolean existsByProduct_ProductIdAndCategory_CategoryIdAndCloth_ClothId(
-            Integer productId, Integer categoryId, Integer clothId);
+    List<Relations> findByCategory_CategoryId(Long categoryId);
 }

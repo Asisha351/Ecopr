@@ -10,6 +10,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,9 +50,9 @@ public class DataInitializer {
 
             for (String[] row : rows) {
                 String categoryName = row[0];
-                Integer categoryId = Integer.parseInt(row[1]);
-
-                Categories category = new Categories(categoryId, categoryName);
+                Long categoryId = Long.parseLong(row[1]);
+                Categories category = new Categories(categoryName);
+                category.setCategoryId(categoryId);
                 categoriesRepository.save(category);
             }
         } catch (IOException | CsvException e) {
@@ -66,9 +67,9 @@ public class DataInitializer {
 
             for (String[] row : rows) {
                 String clothName = row[0];
-                Integer clothId = Integer.parseInt(row[1]);
-
-                Cloth cloth = new Cloth(clothId, clothName);
+                Long clothId = Long.parseLong(row[1]);
+                Cloth cloth = new Cloth(clothName);
+                cloth.setClothId(clothId);
                 clothRepository.save(cloth);
             }
         } catch (IOException | CsvException e) {
@@ -82,12 +83,13 @@ public class DataInitializer {
             rows.remove(0); // Skip header row
 
             for (String[] row : rows) {
-                Integer productId = Integer.parseInt(row[0]);
+                Long productId = Long.parseLong(row[0]);
                 String productName = row[1];
-                Integer productCost = Integer.parseInt(row[2]);
+                BigDecimal productCost = new BigDecimal(row[2]);
                 String productURL = row[3];
 
-                Products product = new Products(productId, productName, productCost, productURL);
+                Products product = new Products(productName, productCost, productURL);
+                product.setProductId(productId);
                 productsRepository.save(product);
             }
         } catch (IOException | CsvException e) {
@@ -101,10 +103,9 @@ public class DataInitializer {
             rows.remove(0); // Skip header row
 
             for (String[] row : rows) {
-                Integer relationId = Integer.parseInt(row[0]);
-                Integer productId = Integer.parseInt(row[1]);
-                Integer categoryId = Integer.parseInt(row[2]);
-                Integer clothId = Integer.parseInt(row[3]);
+                Long productId = Long.parseLong(row[0]);
+                Long categoryId = Long.parseLong(row[1]);
+                Long clothId = Long.parseLong(row[2]);
 
                 Optional<Products> productOpt = productsRepository.findById(productId);
                 Optional<Categories> categoryOpt = categoriesRepository.findById(categoryId);
@@ -115,11 +116,8 @@ public class DataInitializer {
                     Categories category = categoryOpt.get();
                     Cloth cloth = clothOpt.get();
 
-                    Relations relation = new Relations(relationId, product, category, cloth);
+                    Relations relation = new Relations(product, category, cloth);
                     relationsRepository.save(relation);
-                } else {
-                    System.err.println("Could not find related entities for relation: " +
-                                       "Product ID: " + productId + ", Category ID: " + categoryId + ", Cloth ID: " + clothId);
                 }
             }
         } catch (IOException | CsvException e) {

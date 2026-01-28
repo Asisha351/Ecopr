@@ -3,6 +3,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.ecopr.model.Cloth;
 import java.util.Optional;
 
-public interface ClothRepository extends JpaRepository<Cloth, Integer> {
+public interface ClothRepository extends JpaRepository<Cloth, Long> {
     Optional<Cloth> findBycloth(String cloth);
 }

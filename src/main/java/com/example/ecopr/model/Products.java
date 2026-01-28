@@ -1,6 +1,9 @@
 package com.example.ecopr.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -8,33 +11,38 @@ public class Products {
 
     @Id
     @Column(name = "product_id")
-    private Integer productId; // Manually set ID
+    private Long productId;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
 
     @Column(name = "cost", nullable = false)
-    private Integer cost;
+    private BigDecimal cost;
 
     @Column(name = "product_url", nullable = false)
     private String productURL;
 
-    public Products() {}
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Set<Relations> relations = new HashSet<>();
 
-    public Products(Integer productId, String productName, Integer cost, String productURL) {
-        this.productId = productId;
+    public Products() {
+        // Default constructor
+    }
+
+    public Products(String productName, BigDecimal cost, String productURL) {
         this.productName = productName;
         this.cost = cost;
         this.productURL = productURL;
     }
 
-    // Getters and setters
-public Integer getProductId() {
+    // Getters and setters for attributes
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer product_id) {
-        this.productId = product_id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -45,11 +53,11 @@ public Integer getProductId() {
         this.productName = productName;
     }
 
-    public Integer getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
@@ -59,6 +67,14 @@ public Integer getProductId() {
 
     public void setProductURL(String productURL) {
         this.productURL = productURL;
+    }
+
+    public Set<Relations> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(Set<Relations> relations) {
+        this.relations = relations;
     }
 
     @Override

@@ -15,11 +15,12 @@ public class ProductServiceImp implements ProductService {
     private RelationsRepository relationsRepository;
 
     @Override
-    public List<Products> getProductsByCategory(int categoryId) { // Changed to int
-        List<Relations> relations = relationsRepository.findBycategory_categoryId(categoryId);
-
+    public List<Products> getProductsByCategory(Long categoryId) {
+        List<Relations> relations = relationsRepository.findByCategory_CategoryId(categoryId);
+        System.out.println("Category ID received: " + categoryId);
         return relations.stream()
                 .map(Relations::getProduct)
+                .distinct()
                 .collect(Collectors.toList());
     }
 }

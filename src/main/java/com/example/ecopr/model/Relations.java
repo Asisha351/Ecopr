@@ -7,37 +7,40 @@ import jakarta.persistence.*;
 public class Relations {
 
     @Id
-    @Column(name = "relation_id")
-    private Integer relationId;
+    @Column(name = "product_id",insertable = false, updatable = false)
+    private Long product_id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Categories category;
-    
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Products product;
 
     @ManyToOne
-    @JoinColumn(name = "cloth_id", nullable = false)
+    @JoinColumn(name = "category_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Categories category;
+
+    @ManyToOne
+    @JoinColumn(name = "cloth_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Cloth cloth;
 
     public Relations() {}
 
-    public Relations(Integer relationId, Products product, Categories category, Cloth cloth) {
-        this.relationId = relationId;
+    public Relations(Products product, Categories category, Cloth cloth) {
         this.product = product;
+        this.product_id = product.getProductId();
         this.category = category;
         this.cloth = cloth;
     }
 
     // Getters and setters
-    public Integer getRelationId() {
-        return relationId;
+    public Long getProduct_id() {
+        return product_id;
     }
 
-    public void setRelation_id(Integer relation_id) {
-        this.relationId = relation_id;
+    public void setProduct_id(Long product_id) {
+        this.product_id = product_id;
     }
 
     public Products getProduct() {
@@ -66,6 +69,6 @@ public class Relations {
 
     @Override
     public String toString() {
-        return "Relations{ relation_id=" + relationId + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
+        return "Relations{ product_id=" + product_id + ", product=" + product + ", category=" + category + ", cloth=" + cloth + " }";
     }
 }

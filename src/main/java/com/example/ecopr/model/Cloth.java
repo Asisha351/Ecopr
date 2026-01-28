@@ -10,29 +10,29 @@ public class Cloth {
 
     @Id
     @Column(name = "cloth_id")
-    private Integer clothId;
+    private Long clothId;
 
     @Column(name = "cloth", nullable = false)
     private String cloth;
 
     @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Relations> relations = new HashSet<>();
 
     public Cloth() {
         // Default constructor
     }
 
-    public Cloth(Integer clothId, String cloth) {
-        this.clothId = clothId;
+    public Cloth(String cloth) {
         this.cloth = cloth;
     }
-    
+
     // Getters and setters for attributes
-    public Integer getClothId() {
+    public Long getClothId() {
         return clothId;
     }
 
-    public void setClothId(Integer clothId) {
+    public void setClothId(Long clothId) {
         this.clothId = clothId;
     }
 

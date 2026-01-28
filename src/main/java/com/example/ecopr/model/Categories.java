@@ -8,29 +8,31 @@ import java.util.Set;
 @Table(name = "categories")
 public class Categories {
 
-    @Id
-    @Column(name = "category_id")
-    private Integer categoryId; // Manually set ID
-
     @Column(name = "category", nullable = false)
     private String category;
 
+    @Id
+    @Column(name = "category_id")
+    private Long categoryId;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Relations> relations = new HashSet<>();
 
-    public Categories() {}
+    public Categories() {
+        // Default constructor
+    }
 
-    public Categories(Integer categoryId, String category) {
-        this.categoryId = categoryId;
+    public Categories(String category) {
         this.category = category;
     }
 
     // Getters and setters
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

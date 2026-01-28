@@ -1,89 +1,103 @@
-body{
-    font-family: sans-serif;
+* {
+    box-sizing: border-box;
+}
+
+body {
     margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f3;
 }
-header{
+
+/* Header */
+header {
     background-color: #76c82e;
-    color: rgb(16, 52, 2);
+    color: #143600;
     text-align: center;
-    padding: 0.01px;
+    padding: 15px;
 }
-.content{
+
+/* Page layout */
+.container {
     display: flex;
-    flex-direction: row;
-    padding: 20px;
+    padding: 30px;
+    gap: 30px;
 }
-.left{
-    display: flex;
-    flex-direction: column;
-    color: rgb(13, 141, 238);
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-right: 20px;
+
+/* Home page sections */
+.left {
     width: 60%;
 }
-.right{
-    display: flex;
-    flex-direction: column;
-    color: rgb(238, 129, 13);
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 20px;
+
+.right {
     width: 40%;
 }
-h6{
+
+/* Buttons */
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    background-color: #76c82e;
+    color: #143600;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d8801c;
+}
+
+/* Products page */
+#results.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Product cards */
+.card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-weight: bold;
     margin-bottom: 10px;
 }
-p{
-    line-height: 1.6;
-    font-size:medium;
-}
-button{
-    font-size: large;
-}
-#results {
-    /* Give the results container some basic styling to make it visible */
-    background-color: #ffffff; /* White background */
-    padding: 20px; /* Some padding inside the box */
-    border: 1px solid #e0e0e0; /* A light border */
-    border-radius: 8px; /* Slightly rounded corners */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
 
-    /* Ensure it takes up space and allows content to flow */
-    flex-grow: 1; /* Allows #results to take up available space in the .content flex container */
-    display: flex; /* Make #results itself a flex container */
-    flex-direction: column; /* Stack products vertically */
-    gap: 15px; /* Space between each product item */
+.small-btn {
+    background-color: #76c82e;
+    padding: 8px 12px;
+    font-size: 14px;
 }
 
-/* Style for each individual product item */
-.product-item {
-    padding: 15px;
-    border: 1px solid #d0d0d0;
-    border-radius: 5px;
-    background-color: #f9f9f9; /* Slightly off-white for individual items */
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Space between name, cost, link within an item */
+.fav-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    margin-bottom: 8px;
 }
 
-.product-item h3 {
-    margin: 0; /* Remove default h3 margins */
-    color: #333;
-    font-size: 1.2em; /* Slightly larger heading */
+/* Responsive layout--- Grid on desktop, Single column on mobile */
+@media (max-width: 768px) {
+  #results.grid {
+    grid-template-columns: 1fr; /* single column */
+  }
 }
 
-.product-item p {
-    margin: 0; /* Remove default p margins */
-    color: #666;
-}
 
-.product-item a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
 
-.product-item a:hover {
-    text-decoration: underline;
-}
+
